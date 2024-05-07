@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import javax.swing.JOptionPane;
 
@@ -51,6 +53,11 @@ public class Confirmacao extends javax.swing.JFrame {
             mes = datas.substring(3, 5);
             ano = datas.substring(6, 10);
             dataTabela = ano+mes+dia;
+            String validar = dia + "/" + mes + "/"+ ano;
+            if(isValid(validar)){
+                
+                return;
+            }
             pst.setString(2, dataTabela);
             datas = CadSaida.getText();
             dia2 = datas.substring(0, 2);
@@ -106,6 +113,19 @@ public class Confirmacao extends javax.swing.JFrame {
             System.out.print(e);
         }
     }
+    
+
+
+   public boolean isValid(String date) {
+      try {
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         LocalDate d = LocalDate.parse(date, formatter);    
+         return true;
+      } catch (DateTimeParseException e) {
+        return false;
+      }   
+   }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
