@@ -54,8 +54,8 @@ public class Confirmacao extends javax.swing.JFrame {
             ano = datas.substring(6, 10);
             dataTabela = ano+mes+dia;
             String validar = dia + "/" + mes + "/"+ ano;
-            if(isValid(validar)){
-                
+            if(! isValid(validar)){
+             JOptionPane.showMessageDialog(null, "Formato de data inválida" + validar);
                 return;
             }
             pst.setString(2, dataTabela);
@@ -64,6 +64,11 @@ public class Confirmacao extends javax.swing.JFrame {
             mes2 = datas.substring(3, 5);
             ano2 = datas.substring(6, 10);
             dataTabela= ano2+mes2+dia2;
+            validar = dia2 + "/" + mes2 + "/"+ ano2;
+            if(! isValid(validar)){
+             JOptionPane.showMessageDialog(null, "Formato de data inválida"+validar);
+                return;
+            }
             pst.setString(3, dataTabela);
             pst.setString(4, NumCad.getText());
             
@@ -122,6 +127,7 @@ public class Confirmacao extends javax.swing.JFrame {
          LocalDate d = LocalDate.parse(date, formatter);    
          return true;
       } catch (DateTimeParseException e) {
+         JOptionPane.showMessageDialog(null, "Formato de data inválida");
         return false;
       }   
    }
