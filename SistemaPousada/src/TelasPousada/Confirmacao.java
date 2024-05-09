@@ -55,7 +55,6 @@ public class Confirmacao extends javax.swing.JFrame {
             dataTabela = ano+mes+dia;
             String validar = dia + "/" + mes + "/"+ ano;
             if(! isValid(validar)){
-             JOptionPane.showMessageDialog(null, "Formato de data inválida" + validar);
                 return;
             }
             pst.setString(2, dataTabela);
@@ -66,7 +65,6 @@ public class Confirmacao extends javax.swing.JFrame {
             dataTabela= ano2+mes2+dia2;
             validar = dia2 + "/" + mes2 + "/"+ ano2;
             if(! isValid(validar)){
-             JOptionPane.showMessageDialog(null, "Formato de data inválida"+validar);
                 return;
             }
             pst.setString(3, dataTabela);
@@ -100,6 +98,10 @@ public class Confirmacao extends javax.swing.JFrame {
             LocalDate dataSaida = LocalDate.of(Integer.parseInt(ano2),Integer.parseInt(mes2),Integer.parseInt(dia2));
             long Dias = ChronoUnit.DAYS.between(dataEntrada, dataSaida);
             String DiasAlugado = String.valueOf(Dias);
+            if(Integer.parseInt(DiasAlugado)>0){
+            JOptionPane.showMessageDialog(null, "Formato de data inválida");
+            return ;     
+            }
             cadDias.setText(DiasAlugado);
             String valorStr = Preco.getText();
             System.out.print(valorStr);
@@ -126,7 +128,7 @@ public class Confirmacao extends javax.swing.JFrame {
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
          LocalDate d = LocalDate.parse(date, formatter);    
          return true;
-      } catch (DateTimeParseException e) {
+      } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "Formato de data inválida");
         return false;
       }   
