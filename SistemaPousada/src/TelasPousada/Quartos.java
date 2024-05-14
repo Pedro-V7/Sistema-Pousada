@@ -44,9 +44,9 @@ public class Quartos extends javax.swing.JFrame {
         preco = rs.getDouble(7);
         System.out.println(preco);
         cadPreco.setText(String.valueOf(preco));
-        cadDescri.setText(rs.getString(8));
+        cadDescri.setText(rs.getString(9));
     } else{
-        JOptionPane.showMessageDialog(null, "USUÁRIO NÃO CADASTRADO!");
+        JOptionPane.showMessageDialog(null, "Deu erro!");
         //As linhas abaixo limpam os campos do formulário
     
     } 
@@ -81,6 +81,7 @@ public class Quartos extends javax.swing.JFrame {
         Alugar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         cadTipo = new javax.swing.JTextField();
+        UserQ = new javax.swing.JLabel();
 
         Preco.setEditable(false);
 
@@ -124,6 +125,8 @@ public class Quartos extends javax.swing.JFrame {
 
         cadTipo.setEditable(false);
 
+        UserQ.setText("User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,8 +153,7 @@ public class Quartos extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cadNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 295, Short.MAX_VALUE))
+                                .addComponent(cadNum, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(Alugar))
@@ -160,12 +162,17 @@ public class Quartos extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(138, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(UserQ)
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addComponent(UserQ)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -209,6 +216,8 @@ public class Quartos extends javax.swing.JFrame {
         confirm.setVisible(true); 
         Confirmacao.NumCad.setText(cadNum.getText());
         Confirmacao.Preco.setText(cadPreco.getText());
+        Confirmacao.UserC.setText(UserQ.getText());
+                
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_AlugarActionPerformed
@@ -261,6 +270,7 @@ public class Quartos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Alugar;
     private javax.swing.JTextField Preco;
+    public static javax.swing.JLabel UserQ;
     private javax.swing.JTextField cadCamas;
     private javax.swing.JTextArea cadDescri;
     public static javax.swing.JTextField cadNum;

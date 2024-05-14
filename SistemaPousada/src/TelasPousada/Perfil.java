@@ -32,6 +32,7 @@ public class Perfil extends javax.swing.JFrame {
     private void achar(){
         String email = CadEmail.getText();
         System.out.println(email); 
+        String reserva = "";
         
     String sql = "SELECT * FROM tbl_cliente WHERE email=?";
         
@@ -49,6 +50,7 @@ public class Perfil extends javax.swing.JFrame {
        CadEstado.setText(rs.getString(8));
        CadEmail.setText(rs.getString(9));
        CadSenha.setText(rs.getString(10));
+       
        
          
     } else{

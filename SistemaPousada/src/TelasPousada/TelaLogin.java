@@ -37,6 +37,8 @@ public class TelaLogin extends javax.swing.JFrame {
             //A linha abaixo realiza a consulta 
             
             rs = pst.executeQuery();
+            
+            
              if(rs.next()){
                 Home principal= new Home();
                 principal.setVisible(true);

@@ -8,10 +8,16 @@ package TelasPousada;
 import DalPousada.ConexaoPousada;
 import javax.swing.JOptionPane;
 import TelasPousada.Perfil;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author CT Desenvolvimento
@@ -23,10 +29,36 @@ public class Home extends javax.swing.JFrame {
     ResultSet rs = null;
     public Home() {
         initComponents();
+       addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowOpened(WindowEvent e) {
+            Acesso(); // Chame o método achar() quando a janela for aberta
+        }
+    });
        
     }
-    
-    
+    public void Acesso(){
+    String sql = "SELECT * FROM tbl_login WHERE email=?";
+   String user = Usuario.getText();
+   System.out.print(user);
+    try{
+    pst = conexao.prepareStatement(sql);
+    pst.setString(1, user);
+    rs = pst.executeQuery();
+    if (rs.next()){
+        String tipo = (rs.getString(4));
+        if(tipo.equals("user")){
+            MenuAdm.setVisible(false);
+            System.out.print("olá adm");
+            }
+        else{
+            System.out.print("olá adm");
+        }
+    }
+}  catch(Exception e ){
+    System.out.print(e);
+}
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,6 +77,8 @@ public class Home extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        MenuAdm = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -88,6 +122,22 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
+        MenuAdm.setText("Relatório");
+        MenuAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAdmActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MenuAdm);
+
+        jMenuItem4.setText("Suas Reservas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -116,6 +166,8 @@ public class Home extends javax.swing.JFrame {
 
         Quartos quarto = new Quartos();
         quarto.setVisible(true);
+        Quartos.UserQ.setText(Usuario.getText());
+        System.out.println(Usuario.getText());
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -144,6 +196,24 @@ public class Home extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void MenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAdmActionPerformed
+            
+        Relatorio relatorio = new Relatorio();
+        relatorio.setVisible(true);
+        
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuAdmActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+    Reservas reserva = new Reservas();
+    reserva.setVisible(true);
+    Reservas.UserR.setText(Usuario.getText());
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
  
     /**
@@ -182,6 +252,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuAdm;
     public static javax.swing.JLabel Usuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -189,6 +260,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }

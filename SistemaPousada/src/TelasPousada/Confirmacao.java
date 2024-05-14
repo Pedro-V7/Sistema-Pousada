@@ -42,7 +42,7 @@ public class Confirmacao extends javax.swing.JFrame {
        String datas = "";
        String dataTabela ="";
         
-    String sql = "UPDATE tbl_quartos SET situacao=?,dataReserva=?,dataSaida=? WHERE numero=?";
+    String sql = "UPDATE tbl_quartos SET situacao=?,dataReserva=?,dataSaida=?,total=? WHERE numero=?";
 
     
    try{
@@ -68,11 +68,13 @@ public class Confirmacao extends javax.swing.JFrame {
                 return;
             }
             pst.setString(3, dataTabela);
-            pst.setString(4, NumCad.getText());
+            pst.setString(4, cadPrecoT.getText());
+            pst.setString(5, NumCad.getText());
             
             int adicionado = pst.executeUpdate();
             if(adicionado > 0){
                 JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso!");
+                reservarProUser();
             }
             
        }
@@ -81,6 +83,23 @@ public class Confirmacao extends javax.swing.JFrame {
        }
        }
      
+     
+     
+    private void reservarProUser(){
+        String User = UserC.getText();
+            String sql = "UPDATE tbl_client SET reserva? WHERE email=?";
+            try{
+                 pst = conexao.prepareStatement(sql);
+                 pst.setString(1,NumCad.getText());
+                 pst.setString(1,User);
+                 
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+           
+            
+    }
 
     // Método para tratar o evento de liberação de tecla para CadSaida
     private void Totais(){
@@ -98,7 +117,7 @@ public class Confirmacao extends javax.swing.JFrame {
             LocalDate dataSaida = LocalDate.of(Integer.parseInt(ano2),Integer.parseInt(mes2),Integer.parseInt(dia2));
             long Dias = ChronoUnit.DAYS.between(dataEntrada, dataSaida);
             String DiasAlugado = String.valueOf(Dias);
-            if(Integer.parseInt(DiasAlugado)>0){
+            if(Integer.parseInt(DiasAlugado)<=0){
             JOptionPane.showMessageDialog(null, "Formato de data inválida");
             return ;     
             }
@@ -156,6 +175,7 @@ public class Confirmacao extends javax.swing.JFrame {
         CadSaida = new javax.swing.JFormattedTextField();
         Preco = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        UserC = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -214,6 +234,8 @@ public class Confirmacao extends javax.swing.JFrame {
 
         jLabel6.setText("Preco por Noite");
 
+        UserC.setText("User");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -237,9 +259,7 @@ public class Confirmacao extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(18, 18, 18))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(31, 31, 31)))
@@ -259,11 +279,16 @@ public class Confirmacao extends javax.swing.JFrame {
                                     .addComponent(Preco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(CadEntrada, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addContainerGap(185, Short.MAX_VALUE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UserC)
+                .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addComponent(UserC)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(NumCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -356,6 +381,7 @@ public class Confirmacao extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField CadSaida;
     public static javax.swing.JTextField NumCad;
     public static javax.swing.JTextField Preco;
+    public static javax.swing.JLabel UserC;
     private javax.swing.JButton cadConfirm;
     private javax.swing.JTextField cadDias;
     private javax.swing.JTextField cadPrecoT;
