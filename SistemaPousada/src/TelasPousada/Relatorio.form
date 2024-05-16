@@ -41,6 +41,11 @@
                           <Component id="Reservas" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Canceladas" min="-2" pref="71" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="194" max="32767" attributes="0"/>
           </Group>
@@ -69,7 +74,12 @@
                       <Component id="Lucro" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="155" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Canceladas" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="119" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,6 +117,13 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Digite a data desejada"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Canceladas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="Canceladas">
     </Component>
   </SubComponents>
 </Form>

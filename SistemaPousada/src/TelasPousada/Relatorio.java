@@ -71,6 +71,7 @@ public class Relatorio extends javax.swing.JFrame {
     if (rs.next()){
         int total = rs.getInt("totalPrint");
         Lucro.setText(String.valueOf(total));
+        RelatorioCanceladas();
     } else{
         JOptionPane.showMessageDialog(null, "Deu erro!");
         //As linhas abaixo limpam os campos do formulário
@@ -83,7 +84,31 @@ public class Relatorio extends javax.swing.JFrame {
 
     }
 
-     
+     private void RelatorioCanceladas(){
+       
+      String sql = "SELECT COUNT(*) AS total_canceladas FROM tbl_veri WHERE MONTH(saida) = ? AND YEAR(saida) = ? ";
+         System.out.println(mes);
+         System.out.println(ano);
+      
+    try{
+    pst = conexao.prepareStatement(sql);
+    pst.setInt(1, mes);
+    pst.setInt(2, ano);
+    rs = pst.executeQuery();
+    if (rs.next()){
+        int total = rs.getInt("total_canceladas");
+        Canceladas.setText(String.valueOf(total));
+    } else{
+        JOptionPane.showMessageDialog(null, "Deu erro!");
+        //As linhas abaixo limpam os campos do formulário
+    
+    } 
+       }
+   catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+            }
+
+    }
      
     
 
@@ -102,6 +127,8 @@ public class Relatorio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Reservas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Canceladas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,6 +154,8 @@ public class Relatorio extends javax.swing.JFrame {
 
         jLabel3.setText("Digite a data desejada");
 
+        jLabel4.setText("Canceladas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +173,11 @@ public class Relatorio extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Lucro, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(Canceladas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -165,7 +198,11 @@ public class Relatorio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(Lucro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(Canceladas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,11 +256,13 @@ public class Relatorio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Canceladas;
     private javax.swing.JFormattedTextField DatasRe;
     private javax.swing.JTextField Lucro;
     public static javax.swing.JTextField Reservas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

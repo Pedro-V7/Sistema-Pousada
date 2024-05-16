@@ -196,10 +196,19 @@ else {
                if(apagado > 0){
                JOptionPane.showMessageDialog(null, "Usuário apagado");
                //limpar formulario
-       
+               Confirmacao conf = new Confirmacao();
+               conf.setVisible(false);
+               Home home = new Home();
+               home.setVisible(false);
+               Quartos qua = new Quartos();
+               qua.setVisible(false);
+               Relatorio rela = new Relatorio();
+               rela.setVisible(false);
+               Reservas rese = new Reservas();
+               rese.setVisible(false);
                TelaLogin login = new TelaLogin();
                login.setVisible(true);
-               System.exit(0);
+               dispose();
                      
                
            }

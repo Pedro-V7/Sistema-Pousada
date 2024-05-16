@@ -46,8 +46,13 @@ public class Quartos extends javax.swing.JFrame {
         cadPreco.setText(String.valueOf(preco));
         cadDescri.setText(rs.getString(9));
     } else{
-        JOptionPane.showMessageDialog(null, "Deu erro!");
-        //As linhas abaixo limpam os campos do formulário
+        JOptionPane.showMessageDialog(null, "Número de Quarto indisonível!");
+        
+         cadSitua.setText(null);
+        cadTipo.setText(null);
+        cadCamas.setText(null);
+        cadPreco.setText(null);
+        cadDescri.setText(null);
     
     } 
        }

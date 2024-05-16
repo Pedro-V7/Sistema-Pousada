@@ -145,7 +145,7 @@ else {
         cadTelefone.setText(null); 
         cadCidade.setText(null);
         cadEstado.setText(null); 
-        
+        dispose();
   
             }
          

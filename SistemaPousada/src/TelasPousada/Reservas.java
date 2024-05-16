@@ -48,9 +48,9 @@ public class Reservas extends javax.swing.JFrame {
         NumQuarto.setText(rs.getString(1));
         Achar();
     } else{
-        JOptionPane.showMessageDialog(null, "Deu erro!");
+        JOptionPane.showMessageDialog(null, "Nenhuma reserva feita");
         //As linhas abaixo limpam os campos do formulário
-    
+        dispose();
     } 
        }
    catch(Exception e){
@@ -89,9 +89,9 @@ public class Reservas extends javax.swing.JFrame {
         Pago.setText(rs.getString(8));
         
     } else{
-        JOptionPane.showMessageDialog(null, "Deu erro!");
+        JOptionPane.showMessageDialog(null, "Nenhuma reserva encontrada!");
         //As linhas abaixo limpam os campos do formulário
-    
+       dispose();
     } 
        }
    catch(Exception e){
@@ -100,8 +100,88 @@ public class Reservas extends javax.swing.JFrame {
 
     }
     
+    private void Cancelar(){
+       String ano = "";
+       String mes = "";
+       String dia = "";
+       String status = "CANCELADA";   
+       String datas = "";
+       String dataTabela ="";
+       
+       String sql = "INSERT INTO tbl_veri (NumQuarto, entrada, saida, status) VALUES (?, ?, ?, ?)";
+                try{
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, NumQuarto.getText());
+            datas = Chekin.getText();
+            dia = datas.substring(0, 2);
+            mes = datas.substring(3, 5);
+            ano = datas.substring(6, 10);
+            dataTabela = ano+mes+dia;
+            System.out.println(dataTabela);        
+            pst.setString(2, dataTabela);
+            datas = Checkout.getText();
+            dia = datas.substring(0, 2);
+            mes = datas.substring(3, 5);
+            ano = datas.substring(6, 10);
+            dataTabela = ano+mes+dia;
+            pst.setString(3, dataTabela);
+            pst.setString(4, status);
+            
+              int adicionado = pst.executeUpdate();
+              
+                if(adicionado > 0){
+                    System.out.println("Foi");
+                    Atualizar();
+                }
+                else{
+                    System.out.println("Não foi");
+                }
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+    }
+    
+    private void Atualizar(){
+        String situacao ="DISPONÍVEL";
+            String sql = "UPDATE tbl_quartos SET situacao=?,dataReserva=?,dataSaida=?,total=? WHERE numero=?";
+ try{
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1,situacao);
+            pst.setString(2,null);
+            pst.setString(3,null);
+            pst.setString(4,null);
+            pst.setString(5,NumQuarto.getText());
+             int adicionado = pst.executeUpdate();
+            if(adicionado > 0){
+                JOptionPane.showMessageDialog(null, "Reserva Cancelada");
+                AtualizarUser();
+            }
+    }
+ catch(Exception e ){
+       System.out.println(e);
+ }
+    }
+     private void AtualizarUser(){
+        String sql = "UPDATE tbl_cliente SET reserva=? WHERE email=?";
+try{
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1,null);
+            pst.setString(2,UserR.getText());
+
+            int adicionado = pst.executeUpdate();
+            if(adicionado > 0){
+                JOptionPane.showMessageDialog(null, "Reserva Cancelada");
+                dispose();
+            }
+    }
+ catch(Exception e ){
+      System.out.println(e);
+ 
+     }
     
     
+     }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +205,8 @@ public class Reservas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Checkout = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Número do Quarto:");
 
@@ -150,6 +231,11 @@ public class Reservas extends javax.swing.JFrame {
         });
 
         jButton1.setText("Cancelar Reserva");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         UserR.setText("User");
 
@@ -251,6 +337,10 @@ public class Reservas extends javax.swing.JFrame {
     private void PrecoPorNoiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecoPorNoiteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrecoPorNoiteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    Cancelar() ;       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
