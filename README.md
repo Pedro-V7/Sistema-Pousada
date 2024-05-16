@@ -1,3 +1,3 @@
 # Sistema-Pousada
 
-#  trivago aqui não, bglh é pousada
+# Sistema de uma pousada utilizando jFrame no NetBeans. Obrigado por Testar nosso pequeno projeto!
